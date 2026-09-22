@@ -10,8 +10,8 @@ export default function AccessMe() {
     const socialLinks = [
         { icon: FaInstagram, href: "https://www.instagram.com/mh.fullstack.dev", label: "Instagram", color: "hover:bg-pink-500" },
         { icon: FaLinkedin, href: "https://www.linkedin.com/in/mh-dadgostar/", label: "LinkedIn", color: "hover:bg-blue-600" },
-        { icon: FaTelegram, href: "https://t.me/blackeagle256", label: "Telegram", color: "hover:bg-sky-500" },
-        { icon: FaGithub, href: "https://github.com/BlackEagle256", label: "GitHub", color: "hover:bg-gray-700" },
+        { icon: FaTelegram, href: "https://t.me/Terminal2002", label: "Telegram", color: "hover:bg-sky-500" },
+        { icon: FaGithub, href: "https://github.com/MHDadgostar", label: "GitHub", color: "hover:bg-gray-700" },
         { icon: FaEnvelope, href: "mailto:mohammadhoseindadgostr@gmail.com", label: "Email", color: "hover:bg-red-500" },
     ];
 

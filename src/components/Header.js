@@ -18,8 +18,8 @@ export default function Header() {
     const socialLinks = [
         { href: "https://www.instagram.com/mh.fullstack.dev", icon: FaInstagram, label: "Instagram" },
         { href: "https://www.linkedin.com/in/mh-dadgostar", icon: FaLinkedin, label: "LinkedIn" },
-        { href: "https://t.me/blackeagle256", icon: FaTelegramPlane, label: "Telegram" },
-        { href: "https://github.com/BlackEagle256", icon: FaGithub, label: "GitHub" },
+        { href: "https://t.me/Terminal2002", icon: FaTelegramPlane, label: "Telegram" },
+        { href: "https://github.com/MHDadgostar", icon: FaGithub, label: "GitHub" },
         { href: "mailto:mohammadhoseindadgostr@gmail.com", icon: MdEmail, label: "Email" },
         { href: "tel:09366606536", icon: FaPhoneAlt, label: "Phone" },
     ];
