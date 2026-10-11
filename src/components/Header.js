@@ -1,62 +1,66 @@
 import React, { useContext, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { LanguageContext } from '../context/LanguageContext';
-import { FaInstagram, FaLinkedin, FaTelegramPlane, FaGithub, FaPhoneAlt } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import { FaInstagram, FaLinkedin, FaTelegramPlane, FaGithub } from 'react-icons/fa';
 import clsx from 'clsx';
+import { SOCIALS } from '../data/site';
+
+export const socialLinks = [
+    { key: 'github', href: SOCIALS.github, icon: FaGithub },
+    { key: 'linkedin', href: SOCIALS.linkedin, icon: FaLinkedin },
+    { key: 'telegram', href: SOCIALS.telegram, icon: FaTelegramPlane },
+    { key: 'instagram', href: SOCIALS.instagram, icon: FaInstagram },
+];
+
+export const navItems = ['about', 'projects', 'skills', 'experience', 'contact'];
 
 export default function Header() {
-    const { toggleLang, t, lang, dir } = useContext(LanguageContext);
+    const { t, lang, otherLang } = useContext(LanguageContext);
     const [scrolled, setScrolled] = useState(false);
-    const isRtl = dir === 'rtl';
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const socialLinks = [
-        { href: "https://www.instagram.com/mh.fullstack.dev", icon: FaInstagram, label: "Instagram" },
-        { href: "https://www.linkedin.com/in/mh-dadgostar", icon: FaLinkedin, label: "LinkedIn" },
-        { href: "https://t.me/Terminal2002", icon: FaTelegramPlane, label: "Telegram" },
-        { href: "https://github.com/MHDadgostar", icon: FaGithub, label: "GitHub" },
-        { href: "mailto:mohammadhoseindadgostr@gmail.com", icon: MdEmail, label: "Email" },
-        { href: "tel:09366606536", icon: FaPhoneAlt, label: "Phone" },
-    ];
 
     return (
         <header
             className={clsx(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+                "fixed top-0 inset-x-0 z-50 transition-all duration-500",
                 scrolled
                     ? "bg-white/90 backdrop-blur-xl shadow-elegant py-3"
                     : "bg-transparent py-5"
             )}
-            dir={dir}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-4">
 
                     {/* Logo */}
-                    <div className="flex items-center gap-3">
-                        <div className={clsx(
-                            "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg transition-all duration-300",
-                            scrolled ? "bg-navy-900 text-white" : "bg-white text-navy-900 shadow-md"
-                        )}>
+                    <a href="#home" className="flex items-center gap-3">
+                        <span
+                            aria-hidden="true"
+                            dir="ltr"
+                            className={clsx(
+                                "w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg transition-all duration-300",
+                                scrolled ? "bg-navy-900 text-white" : "bg-white text-navy-900 shadow-md"
+                            )}
+                        >
                             MH
-                        </div>
-                        <div className={clsx(
+                        </span>
+                        <span className={clsx(
                             "hidden sm:block transition-colors duration-300",
                             scrolled ? "text-navy-900" : "text-white"
                         )}>
-                            <p className="font-semibold text-sm tracking-wide">Mohammad Hosein</p>
-                            <p className="text-xs opacity-70">Full-Stack Developer</p>
-                        </div>
-                    </div>
+                            <span className="block font-semibold text-sm">{t.shortName}</span>
+                            <span className="block text-xs opacity-70">{t.role}</span>
+                        </span>
+                    </a>
 
                     {/* Navigation */}
-                    <nav className="hidden md:flex items-center gap-8">
-                        {['about', 'skills', 'experience', 'contact'].map((item) => (
+                    <nav aria-label={t.nav.label} className="hidden md:flex items-center gap-6 lg:gap-8">
+                        {navItems.map((item) => (
                             <a
                                 key={item}
                                 href={`#${item}`}
@@ -65,9 +69,9 @@ export default function Header() {
                                     scrolled ? "text-gray-600 hover:text-navy-900" : "text-white/80 hover:text-white"
                                 )}
                             >
-                                {t.nav?.[item] || item}
+                                {t.nav[item]}
                                 <span className={clsx(
-                                    "absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full",
+                                    "absolute -bottom-1 start-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full",
                                     scrolled ? "bg-gold-500" : "bg-white"
                                 )} />
                             </a>
@@ -78,49 +82,68 @@ export default function Header() {
                     <div className="flex items-center gap-4">
 
                         {/* Social Icons */}
-                        <div className="hidden lg:flex items-center gap-2">
-                            {socialLinks.slice(0, 4).map(({ href, icon: Icon, label }) => (
-                                <a
-                                    key={label}
-                                    href={href}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className={clsx(
-                                        "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110",
-                                        scrolled
-                                            ? "text-gray-500 hover:text-navy-900 hover:bg-gray-100"
-                                            : "text-white/70 hover:text-white hover:bg-white/10"
-                                    )}
-                                >
-                                    <Icon size={16} />
-                                </a>
+                        <ul className="hidden xl:flex items-center gap-2">
+                            {socialLinks.map(({ key, href, icon: Icon }) => (
+                                <li key={key}>
+                                    <a
+                                        href={href}
+                                        target="_blank"
+                                        rel="me noopener noreferrer"
+                                        aria-label={t.social[key]}
+                                        title={t.social[key]}
+                                        className={clsx(
+                                            "w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110",
+                                            scrolled
+                                                ? "text-gray-500 hover:text-navy-900 hover:bg-gray-100"
+                                                : "text-white/70 hover:text-white hover:bg-white/10"
+                                        )}
+                                    >
+                                        <Icon size={16} aria-hidden="true" />
+                                    </a>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
 
                         {/* Divider */}
-                        <div className={clsx(
-                            "hidden lg:block w-px h-6 transition-colors duration-300",
+                        <div aria-hidden="true" className={clsx(
+                            "hidden xl:block w-px h-6 transition-colors duration-300",
                             scrolled ? "bg-gray-200" : "bg-white/30"
                         )} />
 
-                        {/* Language Toggle */}
-                        <button
-                            onClick={toggleLang}
+                        {/* Language Switch */}
+                        <Link
+                            href="/"
+                            locale={otherLang}
+                            hrefLang={otherLang}
+                            lang={otherLang}
+                            aria-label={t.langSwitch.aria}
                             className={clsx(
-                                "relative px-4 py-2 rounded-xl text-sm font-medium overflow-hidden transition-all duration-300 group",
+                                "px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300",
                                 scrolled
-                                    ? "bg-navy-900 text-white hover:bg-navy-800"
-                                    : "bg-white text-navy-900 hover:bg-gray-100"
+                                    ? "bg-navy-900 text-white hover:bg-gold-500 hover:text-navy-900"
+                                    : "bg-white text-navy-900 hover:bg-gold-400"
                             )}
                         >
-                            <span className="relative z-10">{lang === 'fa' ? 'EN' : 'فارسی'}</span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-gold-400 to-gold-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
-                                {lang === 'fa' ? 'EN' : 'فارسی'}
-                            </span>
-                        </button>
+                            {t.langSwitch.label}
+                        </Link>
                     </div>
                 </div>
+
+                {/* Mobile Navigation */}
+                <nav aria-label={t.nav.label} className="md:hidden flex items-center justify-between gap-3 mt-3 overflow-x-auto">
+                    {navItems.map((item) => (
+                        <a
+                            key={item}
+                            href={`#${item}`}
+                            className={clsx(
+                                "text-xs font-medium whitespace-nowrap py-1 transition-colors duration-300",
+                                scrolled ? "text-gray-600" : "text-white/80"
+                            )}
+                        >
+                            {t.nav[item]}
+                        </a>
+                    ))}
+                </nav>
             </div>
         </header>
     );

@@ -20,22 +20,26 @@ module.exports = {
           900: '#0c4a6e',
         },
         navy: {
+          50: '#f1f5f9',
+          700: '#334155',
           800: '#1e293b',
           900: '#0f172a',
           950: '#020617',
         },
         gold: {
+          50: '#fffbeb',
+          300: '#fcd34d',
           400: '#fbbf24',
           500: '#f59e0b',
-          600: '#d97706',
+          600: '#b45309',
+          700: '#92400e',
         },
         slate: {
           750: '#293548',
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Vazirmatn', 'sans-serif'],
-        heading: ['Playfair Display', 'serif'],
+        sans: ['Vazirmatn', 'Inter', 'sans-serif'],
       },
       boxShadow: {
         'elegant': '0 10px 40px -10px rgba(0, 0, 0, 0.1)',
