@@ -155,6 +155,7 @@ export default function Seo() {
             <meta name="twitter:image" content={image} />
             <meta name="twitter:image:alt" content={t.seo.imageAlt} />
 
+            <link rel="alternate" type="text/plain" title="llms.txt" href={`${SITE_URL}/llms.txt`} />
             <link rel="me" href={SOCIALS.github} />
             <link rel="me" href={SOCIALS.linkedin} />
 
